@@ -1,0 +1,187 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+      "version": "1.0.0",
+      "title": "Title",
+      "description": "Description",
+      "license": {
+          "name": "MIT",
+          "url": "https://opensource.org/licenses/MIT"
+      }
+  },
+  "consumes": [
+      "application/json"
+  ],
+  "produces": [
+      "application/json"
+  ],
+  "paths": {
+      "/user/{id}": {
+        "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "ID of the user",
+                "type": "string"
+            }
+        ],
+        "get": {
+              "summary": "Get user by ID",
+              "parameters": [
+                  {
+                      "in": "path",
+                      "name": "id",
+                      "required": true,
+                      "schema": {
+                          "$ref": "#/definitions/id"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/User"
+                      }
+                  },
+                  "404": {
+                      "description": "User not found."
+                  }
+              }
+        },
+        "delete": {
+            "summary": "Delete user by ID",
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/id"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK"
+                },
+                "404": {
+                    "description": "User not found."
+                }
+            }
+        },
+        "put": {
+            "summary": "Update user data",
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/id"
+                    }
+                }
+            ],
+            "requestBody": {
+                "description": "User data",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/definitions/UserData"
+                        }
+                    }
+                }
+            },
+            "produces": [
+                "application/json"
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/User"
+                    }
+                },
+                "400": {
+                    "description": "Failed. Bad data."
+                }
+            }
+        }
+      },
+      "/user/": {
+        "post": {
+            "summary": "Create a new user",
+            "requestBody": {
+                "description": "User data",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/definitions/UserData"
+                        }
+                    }
+                }
+            },
+            "produces": [
+                "application/json"
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/User"
+                    }
+                },
+                "400": {
+                    "description": "Failed. Bad data."
+                }
+            }
+        }
+      }
+  },
+  "definitions": {
+      "id": {
+          "properties": {
+              "uuid": {
+                  "type": "string"
+              }
+          }
+      },
+      "User": {
+          "type": "object",
+          "properties": {
+            "id": {
+                "type": "string"
+            },
+            "email": {
+                "type": "string"
+            },
+            "givenName": {
+                "type": "string"
+            },
+            "familyName": {
+                "type": "string"
+            },
+            "created": {
+                "type": "string"
+            }
+          }
+      },
+    "UserData": {
+        "type": "object",
+        "properties": {
+            "email": {
+                "type": "string"
+            },
+            "givenName": {
+                "type": "string"
+            },
+            "familyName": {
+                "type": "string"
+            }
+        }
+    }
+  }
+}
